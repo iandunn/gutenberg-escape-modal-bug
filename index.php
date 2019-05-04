@@ -19,6 +19,12 @@ function gemb_register_screen() {
 add_action( 'admin_menu', 'gemb_register_screen' );
 
 function gemb_enqueue_scripts() {
+	$screen = get_current_screen();
+
+	if ( ! $screen instanceof  WP_Screen || 'toplevel_page_gutenberg-escape-modal-bug' !== $screen->base ) {
+		return;
+	}
+
 	wp_enqueue_script(
 		'gutenberg-escape-modal-bug',
 		plugins_url( 'build/index.js', __FILE__ ),
